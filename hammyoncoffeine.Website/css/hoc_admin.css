@@ -1,0 +1,318 @@
+﻿body 
+{
+	margin: 0;
+	padding: 0;
+	font: 13px/1.5 Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+}
+li
+{
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+}
+.container
+{
+	width: 923px;
+	margin: 0 auto;
+}
+.container>img
+{
+	width: 220px;
+	height: 100px;
+	position: absolute;
+}
+.container .one_third, .container .two_third
+{
+	float: left;
+	font-size: 20px;
+	color: #999999;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.container .one_third a, .container .two_third a, .navigation a
+{
+	color: #666666;
+	text-decoration: none;
+}
+.container .one_third a:hover, .container .two_third a:hover, .navigation a:hover
+{
+	color: Black;
+}
+.navigation
+{
+	padding-left: 250px;
+	padding-top: 59px;
+	margin: 0;
+}
+.navigation li
+{	
+	
+	float: left;
+	/*border: dotted #DCDDDE 1px;
+	border-left: none;
+	border-right: none;	
+	font-size: 20px;
+	padding: 4px 13px;
+	margin: 0;
+	background-color: #FCFCFC;*/
+}
+.navigation li a
+{
+	border: dotted #DCDDDE 1px;
+	border-left: none;
+	border-right: none;	
+	font-size: 20px;
+	padding: 4px 13px;
+	margin: 0;
+	background-color: #FCFCFC;
+}
+.navigation li a:hover
+{
+	background-color: #F4F4F5;
+}
+
+.navigation li.first a, .navigation li#active a
+{
+	border-left: 1px dotted #DCDDDE;
+}
+.navigation li#active a, .navigation li#active:hover a
+{
+	background-color: #DCDDDE;
+}
+.navigation li.last a
+{
+	border-right: 1px dotted #DCDDDE;
+}
+.container>ul
+{
+	clear: both;
+}
+.content_header
+{
+	margin-top: 20px;
+	padding: 4px 13px 0px 10px;
+	/*padding: 4px 10px;*/
+	background-color: #F4F4F5;
+	float: left;
+	margin-bottom: 10px;
+}
+.content_header li
+{
+	font-size: 20px;
+	float: left;
+	display: inline-block;
+	/*width: 300px;*/
+	padding-left: 20px; 
+	width: 280px;
+}
+.content_header .page{background: url(images/document-globe.png) 0px 7px no-repeat;}
+.content_header .element{background: url(images/document-element.png) 0px 7px no-repeat;}
+.content_header .type{background: url(images/document-type.png) 0px 7px no-repeat;}
+.content_content
+{
+	float: left;
+	background-color: #FCFCFC;
+	margin-bottom: 10px;
+	padding: 9px;
+	border: 1px solid #F5F5F5;
+	margin: 0;
+	margin-bottom: 10px;
+}
+.content_content>li
+{
+	width: 291px;
+	display: inline-block;
+	float: left;
+	margin-right: 10px;
+}
+.content_content .page{background: url(images/application-browser.png) 0px 3px no-repeat; width: 271px; padding-left: 20px;}
+.content_content>li a{color: #666666; text-decoration: none;}
+.content_content>li a:hover{color: black; text-decoration: none;}
+.content_content .page a{border-bottom: 1px dotted #666666;}
+.content_content .page a:hover{border-bottom: 1px solid Black;}
+.content_content ul
+{
+	padding: 0;
+	padding-bottom: 7px;
+}
+.content_content>li li
+{
+	border-bottom: 1px dotted #DCDDDE;
+}
+#footer
+{
+	clear: left;
+	border-top: 4px solid #DCDDDE;
+	color: Silver;
+	padding: 3px 10px;
+}
+
+.one_third
+{
+	width: 34% - 16px;
+	margin-left: 16px;
+}
+.two_third
+{
+	width: 66%;
+}
+.header, .header_icon
+{
+	display: inline-block;
+	background-color: #F4F4F5;
+	color: Black;
+}
+.header{padding: 4px 13px 0px 10px;}
+.header_icon{padding: 4px 13px 0px 30px;}
+
+.two_third .header{width: 586px;}
+.two_third .header_icon{width: 566px;}
+.one_third .header{width: 274px;}
+.one_third .header_icon{width: 254px;}
+.textarea
+{
+	width: 584px;
+	border: 1px solid #DCDDDE;
+	margin: 10px 0px 10px 0px;
+	height: 200px;
+	padding: 10px 13px 0px 10px;
+	font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;	
+}
+.mceEditor 
+{
+	font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: inline-block;
+}
+.button
+{
+	background-color: #F4F4F5;
+	padding: 4px 13px 4px 13px;
+	border: 1px solid #DCDDDE;
+	font-size: 14px;
+	color: #666666;
+	margin-top: 10px;
+	display: block;
+}
+.button:hover
+{
+	color: black;
+	background-color: #DCDDDE;
+}
+.title, .description, .input
+{
+	display: block;
+}
+.title
+{
+	margin-top: 10px;
+}
+.description
+{
+	font-size: 12px;
+	padding: 0px;
+}
+.input
+{
+	padding: 4px;
+	border: solid 1px #DCDDDE;
+	margin-bottom: 10px;
+	width: 400px;
+}
+.login .input
+{
+	width: 200px;
+}
+.one_third .input{width: 265px;}
+.dropbox
+{
+	padding: 4px;
+	border: solid 1px #DCDDDE;
+	margin: 0px 0px 10px 0px;
+	width: 200px;
+	display: block;
+}
+hr
+{
+	border: none;
+	border-bottom: 1px dotted Silver;
+}
+.checkbox{ position: absolute;}
+label{ margin-left: 25px; margin-bottom: 10px;}
+
+.box
+{
+	background-color: #FCFCFC;
+	border: 1px solid #F5F5F5;
+	margin: 10px 0px 0px 0px;
+	padding: 9px;
+	width: 100% - 18px;
+}
+.box hr{border: none; border-top: 1px dotted #DCDDDE; margin-bottom: 0px; margin-right: 3px; margin-bottom: 4px;}
+.box .title{margin-top: 0px; clear: left;}
+.box ul.split{padding: 0; margin: 0px; height: auto;}
+.box ul{padding-left: 100px; margin: 0px; height: 90px;}
+.box .split li .input{width: 190px;}
+.box .split li{float: left; margin-right: 10px;}
+.box .button{margin-top: 0px;}
+.box span
+{
+    display: block;
+}
+
+.message, .error
+{
+	display: block;
+	/* Dies sollte noch überall im HTML angepasst werden, zusammen mit class="box" */
+	padding-left: 9px;
+}
+.box .message, .box .error{padding: 0px;}
+.box .message{width: 273px;}
+.gravatar{position: absolute; background-color: White; padding: 4px; border: solid 1px #F5F5F5;}
+.folders, .files, .messageUL{padding: 2px 10px 4px 10px;margin: 10px 0 0;border: 1px solid #F5F5F5;background-color: #FCFCFC;}
+.folders li a, .files li a, .messageUL li
+{
+	padding-left: 20px;
+	/*min-height: 32px;*/
+	display: inline-block;
+	font-size: 12px;
+	
+}
+.folders li a{background: transparent url(images/folder.png) 0px 0px no-repeat;}
+.files li a{background: transparent url(images/file.png) 0px 0px no-repeat;}
+.messageUL li {background: transparent url(images/folder-open.png) 0px 10px no-repeat; padding-top: 9px; padding-bottom: 6px;}
+
+.delete{position:absolute; right: 6px; top: 6px;background: transparent url(images/cross.png) 6px 5px no-repeat; border: none; padding: 4px 4px 3px 22px;}
+.delete:hover{background-color: #F4F4F5; border: solid 1px #DCDDDE;padding: 3px 3px 3px 22px; background-position: 6px 4px;}
+.delete-icon{background: url(images/cross.png) 6px 5px no-repeat; padding-left: 22px;}
+.relative{position: relative;}
+.user{background: #F4F4F5 url(images/user.png) 8px 12px no-repeat;}
+.user-icon{background: url(images/user.png) 0px 7px no-repeat; padding-left: 22px;}
+.users{background: #F4F4F5 url(images/users.png) 8px 12px no-repeat;}
+.user_add{background: #F4F4F5 url(images/user-plus.png) 8px 12px no-repeat;}
+.file_add{background: #F4F4F5 url(images/document-plus.png) 8px 12px no-repeat;}
+.folder_add{background: #F4F4F5 url(images/folder-plus.png) 8px 12px no-repeat;}
+.folders_icon{background: #F4F4F5 url(images/folders.png) 8px 12px no-repeat;}
+.properties{background: #F4F4F5 url(images/property.png) 8px 12px no-repeat;}
+.svn{background: url(images/subversion.png) 10px 0px no-repeat; padding-left: 30px; margin-left: 10px; border-left: 1px dotted #DCDDDE;}
+.box .success{background: url(images/tick.png) 0px 4px no-repeat; padding-left: 22px;}
+.file-download{background:url(images/drive-download.png) 0px 7px no-repeat; padding-left: 22px;}
+.file-link{background:url(images/chain.png) 0px 7px no-repeat; padding-left: 22px;}
+.file-embed{background:url(images/code.png) 0px 7px no-repeat; padding-left: 22px;}
+.mail{background:url(images/mail.png) 0px 5px no-repeat; padding-left: 22px;}
+.mobile-phone{background:url(images/mobile-phone.png) 0px 7px no-repeat; padding-left: 22px;}
+.embed-textarea{width: 570px; height: 100px; border: 1px solid #DCDDDE; padding: 10px 13px 0 4px; font-family: Helvetica,Arial,'Liberation Sans',FreeSans,sans-serif;}
+.page-add{background: #F4F4F5 url(images/application-plus.png) 8px 12px no-repeat;}
+.title-icon{background:url(images/title.png) 0px 7px no-repeat; padding-left: 22px;}
+.file-upload{background:url(images/drive-upload.png) 0px 7px no-repeat; padding-left: 22px;}
+
+.no-margin-left{margin-left: 0px;}
+
+/* For the pages_details view */
+.pages_detail{clear: left; width: 100% - 20px; color: #999999; font-size: 20px;}
+.pages_detail .title.left{display: inline-block; float: left; margin-right: 10px;}
+.pages_detail select{margin: 0px;}
+.pages_detail.header_icon{display: block; color: #000000; background: #F4F4F5 url(images/application-detail.png) 8px 12px no-repeat;}
+.pages_detail .textarea{margin-top: 0px;}
+.pages_detail.box{margin-bottom: 10px;}

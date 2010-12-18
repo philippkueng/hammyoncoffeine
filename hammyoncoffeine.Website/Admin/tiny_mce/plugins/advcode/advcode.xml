@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<install version="1.5.0" type="plugin" plugin="code">
+	<name>Advanced Code Editor</name>
+	<version>1.5.0</version>
+	<creationDate>27 May 2008</creationDate>
+	<author>Ryan Demmer</author>
+	<authorEmail>ryandemmer@gmail.com</authorEmail>
+	<authorUrl>http://www.joomlacontenteditor.net/</authorUrl>
+	<copyright>Ryan Demmer</copyright>
+	<license>GNU/GPL</license>
+	<description><![CDATA[ 
+	<p>Advanced Code Editor plugin for JCE 1.5.x with syntax highlighting for HTML, CSS, PHP and Javascript.</p>	
+	]]></description>
+	<icon>advcode</icon>
+	<layout>advcode</layout>
+	<files>
+		<filename>editor_plugin.js</filename>
+		<filename>advcode.html</filename>
+		<filename>editor.html</filename>
+        <filename>css/advcode.css</filename>
+		<filename>css/editor.css</filename>
+		<filename>css/styles.css</filename>
+        <filename>css/index.html</filename>
+        <filename>img/advcode.gif</filename>
+        <filename>img/index.html</filename>
+        <filename>img/numbers.png</filename>
+		<filename>img/preview.jpg</filename>
+        <filename>index.html</filename>
+        <filename>js/advcode.js</filename>
+		<filename>js/css.js</filename>
+		<filename>js/gecko.js</filename>
+		<filename>js/html.js</filename>
+		<filename>js/javascript.js</filename>
+		<filename>js/msie.js</filename>
+		<filename>js/opera.js</filename>
+		<filename>js/php.js</filename>
+        <filename>js/index.html</filename>
+        <filename>langs/en_dlg.js</filename>
+        <filename>langs/index.html</filename>
+    </files>
+</install>

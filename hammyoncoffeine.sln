@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hammyoncoffeine.Core", "hammyoncoffeine.Core\hammyoncoffeine.Core.csproj", "{C95505AC-3341-4B28-8091-33FD24D16E96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hammyoncoffeine.Website", "hammyoncoffeine.Website\hammyoncoffeine.Website.csproj", "{8274C235-001A-4CB6-942D-C886AAB82DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hammyoncoffeine.Tests", "hammyoncoffeine.Tests\hammyoncoffeine.Tests.csproj", "{B529405F-A0C4-4F92-A175-FF54B58329A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Default|Any CPU = Default|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C95505AC-3341-4B28-8091-33FD24D16E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C95505AC-3341-4B28-8091-33FD24D16E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C95505AC-3341-4B28-8091-33FD24D16E96}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{C95505AC-3341-4B28-8091-33FD24D16E96}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{C95505AC-3341-4B28-8091-33FD24D16E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C95505AC-3341-4B28-8091-33FD24D16E96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8274C235-001A-4CB6-942D-C886AAB82DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8274C235-001A-4CB6-942D-C886AAB82DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8274C235-001A-4CB6-942D-C886AAB82DDA}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{8274C235-001A-4CB6-942D-C886AAB82DDA}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{8274C235-001A-4CB6-942D-C886AAB82DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8274C235-001A-4CB6-942D-C886AAB82DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B529405F-A0C4-4F92-A175-FF54B58329A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B529405F-A0C4-4F92-A175-FF54B58329A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B529405F-A0C4-4F92-A175-FF54B58329A6}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{B529405F-A0C4-4F92-A175-FF54B58329A6}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{B529405F-A0C4-4F92-A175-FF54B58329A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B529405F-A0C4-4F92-A175-FF54B58329A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = hammyoncoffeine.Website\hammyoncoffeine.Website.csproj
+	EndGlobalSection
+EndGlobal

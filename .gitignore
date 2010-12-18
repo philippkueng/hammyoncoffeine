@@ -1,0 +1,25 @@
+# hammyoncoffeine.Website #
+###########################
+*.suo
+*.userprefs
+*.pidb
+*.Publish.xml
+!.gitignore
+
+# ignore the files in the App_Data directory
+hammyoncoffeine.Website/App_Data/
+
+# ignore the bin directory
+hammyoncoffeine.Website/bin/
+
+# ignore the obj directory
+hammyoncoffeine.Website/obj/
+
+# ignore testing for now
+hammyoncoffeine.Tests/
+
+#hammyoncoffeine.Core
+hammyoncoffeine.Core/obj/
+hammyoncoffeine.Core/bin/
+
+
