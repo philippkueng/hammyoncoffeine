@@ -4,22 +4,31 @@
 *.userprefs
 *.pidb
 *.Publish.xml
-!.gitignore
 
-# ignore the files in the App_Data directory
-hammyoncoffeine.Website/App_Data/
 
-# ignore the bin directory
-hammyoncoffeine.Website/bin/
+# hammyoncoffeine.Website
+# -----------------------
+hammyoncoffeine.Website/App_Data/*.*
+hammyoncoffeine.Website/App_Data/cache/
+hammyoncoffeine.Website/App_Data/files/
+hammyoncoffeine.Website/App_Data/pages/
 
-# ignore the obj directory
+hammyoncoffeine.Website/bin/*.*
+
 hammyoncoffeine.Website/obj/
 
+
 # ignore testing for now
+# ----------------------
 hammyoncoffeine.Tests/
 
-#hammyoncoffeine.Core
+
+# hammyoncoffeine.Core
+# --------------------
 hammyoncoffeine.Core/obj/
-hammyoncoffeine.Core/bin/
+hammyoncoffeine.Core/bin/Debug/
+hammyoncoffeine.Core/bin/Release/*.*
+
+!.gitignore
 
 
