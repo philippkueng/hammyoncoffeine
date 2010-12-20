@@ -9,9 +9,12 @@
 # hammyoncoffeine.Website
 # -----------------------
 hammyoncoffeine.Website/App_Data/*.*
+!hammyoncoffeine.Website/App_Data/Users.xml
+!hammyoncoffeine.Website/App_Data/Settings.xml
 hammyoncoffeine.Website/App_Data/cache/
 hammyoncoffeine.Website/App_Data/files/
 hammyoncoffeine.Website/App_Data/pages/
+hammyoncoffeine.Website/App_Data/logs/
 
 hammyoncoffeine.Website/bin/*.*
 

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <websiteroot></websiteroot>
+  <defaultpage>default</defaultpage>
+  <sitename>hammyoncoffeine</sitename>
+  <site language="de">
+    <title>Hier steht der Titel</title>
+    <subtitle>Hier steht der Untertitel</subtitle>
+  </site>
+  <emailSettings>s
+    <username>user</username>
+    <password>password</password>
+    <emailAddress>info@example.com</emailAddress>
+    <errorEmailAddress>error@example.com</errorEmailAddress>
+    <smtpServer>smtp.example.com</smtpServer>
+    <portNumber>25</portNumber>
+    <authentication>true</authentication>
+  </emailSettings>
+  <subdomains>
+    <subdomain>www.</subdomain>
+  </subdomains>
+</root>

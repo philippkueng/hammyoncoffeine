@@ -120,9 +120,24 @@ namespace hammyoncoffeine.Core
                 XDocument doc = (XDocument)HttpContext.Current.Cache["data"];
                 if (doc == null)
                 {
-                    doc = XDocument.Load(StorageLocation);
+                    // check if data.xml file exists
+                    FileInfo fi = new FileInfo(StorageLocation);
+                    if (fi.Exists)
+                    {
+                        doc = XDocument.Load(StorageLocation);     
+                    }
+                    else
+                    {
+                        // create an empty data.xml file and save to disk
+                        doc = new XDocument(
+                            new XDeclaration("1.0", "utf-8", "yes"),
+                            new XElement("root", ""));
+                        doc.Save(StorageLocation);
+                    }
+
                     CacheDependency cd = new CacheDependency(StorageLocation);
                     HttpContext.Current.Cache.Insert("data", doc, cd);
+
                 }
                 return doc;
             }

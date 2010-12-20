@@ -368,9 +368,6 @@
     <Content Include="Admin\UserControls\type_text.ascx" />
     <Content Include="Admin\UserControls\users.ascx" />
     <Content Include="Admin\UserControls\user_item.ascx" />
-    <Content Include="App_Data\Data.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_Data\pages\bla.htm" />
     <Content Include="App_Data\pages\bla\default.htm" />
     <Content Include="App_Data\pages\default.htm" />
@@ -415,7 +412,7 @@
     <Content Include="css\reset.css" />
     <Content Include="css\stylesheet.css" />
     <Content Include="css\text.css" />
-    <Content Include="default.aspx" />
+    <Content Include="hoc.aspx" />
     <Content Include="email_template.ascx" />
     <Content Include="error.aspx" />
     <Content Include="favicon.ico" />
@@ -596,12 +593,12 @@
     <Compile Include="Admin\UserControls\user_item.ascx.designer.cs">
       <DependentUpon>user_item.ascx</DependentUpon>
     </Compile>
-    <Compile Include="default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="hoc.aspx.cs">
+      <DependentUpon>hoc.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="hoc.aspx.designer.cs">
+      <DependentUpon>hoc.aspx</DependentUpon>
     </Compile>
     <Compile Include="email_template.ascx.designer.cs">
       <DependentUpon>email_template.ascx</DependentUpon>
