@@ -368,6 +368,8 @@
     <Content Include="Admin\UserControls\type_text.ascx" />
     <Content Include="Admin\UserControls\users.ascx" />
     <Content Include="Admin\UserControls\user_item.ascx" />
+    <Content Include="App_Data\files\page_templates\bla.htm" />
+    <Content Include="App_Data\files\page_templates\foo.htm" />
     <Content Include="App_Data\pages\bla.htm" />
     <Content Include="App_Data\pages\bla\default.htm" />
     <Content Include="App_Data\pages\default.htm" />
@@ -647,7 +649,6 @@
     <Compile Include="XmlMembershipProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\files\" />
     <Folder Include="App_Data\pages\bla\folder2\folder1\" />
     <Folder Include="App_Data\pages\bla\foo\" />
     <Folder Include="App_Data\pages\sample\bla\" />

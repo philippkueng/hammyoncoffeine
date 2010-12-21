@@ -22,6 +22,42 @@ namespace hammyoncoffeine.Website {
         protected global::System.Web.UI.WebControls.DropDownList pageAddOptions;
         
         /// <summary>
+        /// ptPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ptPlaceHolder;
+        
+        /// <summary>
+        /// available_page_templates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList available_page_templates;
+        
+        /// <summary>
+        /// pt_sub_PlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder pt_sub_PlaceHolder;
+        
+        /// <summary>
+        /// page_title control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText page_title;
+        
+        /// <summary>
         /// scPlaceHolder control.
         /// </summary>
         /// <remarks>

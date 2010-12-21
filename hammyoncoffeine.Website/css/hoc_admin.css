@@ -106,6 +106,7 @@ li
 	width: 280px;
 }
 .content_header .page{background: url(images/document-globe.png) 0px 7px no-repeat;}
+.content_header .folders_title{background: url(images/folders.png) 0px 7px no-repeat;}
 .content_header .element{background: url(images/document-element.png) 0px 7px no-repeat;}
 .content_header .type{background: url(images/document-type.png) 0px 7px no-repeat;}
 .content_content
@@ -126,10 +127,11 @@ li
 	margin-right: 10px;
 }
 .content_content .page{background: url(images/application-browser.png) 0px 3px no-repeat; width: 271px; padding-left: 20px;}
+.content_content .folder_icon{background: url(images/folder.png) 0px 3px no-repeat; width: 271px; padding-left: 20px;}
 .content_content>li a{color: #666666; text-decoration: none;}
 .content_content>li a:hover{color: black; text-decoration: none;}
-.content_content .page a{border-bottom: 1px dotted #666666;}
-.content_content .page a:hover{border-bottom: 1px solid Black;}
+.content_content .page a, .content_content .folder_icon a{border-bottom: 1px dotted #666666;}
+.content_content .page a:hover, .content_content .folder_icon a:hover{border-bottom: 1px solid Black;}
 .content_content ul
 {
 	padding: 0;

@@ -143,7 +143,7 @@ namespace hammyoncoffeine.Website
                     HtmlGenericControl folder_title_container = new HtmlGenericControl("ul");
                     folder_title_container.Attributes.Add("class", "content_header");
                     HtmlGenericControl folder_title = new HtmlGenericControl("li");
-                    folder_title.Attributes.Add("class", "folders_icon");
+                    folder_title.Attributes.Add("class", "folders_title");
                     folder_title.InnerText = "Ordner";
                     folder_title_container.Controls.Add(folder_title);
                     content.Controls.Add(folder_title_container);
@@ -157,7 +157,7 @@ namespace hammyoncoffeine.Website
                     foreach (var folder in folders.Elements("folder"))
                     {
                         HtmlGenericControl folderItems_li = new HtmlGenericControl("li");
-                        folderItems_li.Attributes.Add("class", "page");
+                        folderItems_li.Attributes.Add("class", "folder_icon");
                         HtmlAnchor folder_anchor = new HtmlAnchor();
 
                         folder_anchor.HRef = "../Default.aspx?c=content&f=" + folder.Attribute("path").Value.ToString();
