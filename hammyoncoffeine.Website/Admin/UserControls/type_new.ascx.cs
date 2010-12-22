@@ -34,7 +34,6 @@ namespace hammyoncoffeine.Website
             XElement element = new XElement("item",
                 new XAttribute("id", Page.Request.QueryString["i"]),
                 new XAttribute("type", availableTypes.SelectedValue.ToString()));
-            //XDocument doc = DataIO.LoadData;
             // Prüfen ob die Seite in data.xml schon existiert
             if (!DataIO.LoadData.Element("root").Elements("page").Where(pageElement => pageElement.Attribute("name").Value.ToLower().Equals(Page.Request.QueryString["p"].ToLower())).Any())
             {

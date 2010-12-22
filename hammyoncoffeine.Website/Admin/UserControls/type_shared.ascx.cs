@@ -20,7 +20,7 @@ namespace hammyoncoffeine.Website
             page = Page.Request.QueryString["p"];
             item = Page.Request.QueryString["i"];
 
-            if(string.IsNullOrEmpty(DataIO.loadItem(folder, page, item).shared_item))
+            if(DataIO.loadItem(folder, page, item) == null || string.IsNullOrEmpty(DataIO.loadItem(folder, page, item).shared_item))
             {
                 // if element is single
                 convertSharedToSingle.Visible = false;
@@ -33,9 +33,17 @@ namespace hammyoncoffeine.Website
 
                 #region list linkable shared items
                 lSiTSh_items.Items.Clear();
-                foreach (var sh_item in DataIO.LoadData.Element("root").Element("shared").Elements("item"))
+                if (DataIO.LoadData.Elements("root").Any() && DataIO.LoadData.Element("root").Elements("shared").Any() && DataIO.LoadData.Element("root").Element("shared").Elements("item").Any())
                 {
-                    lSiTSh_items.Items.Add(sh_item.Attribute("id").Value);
+                    foreach (var sh_item in DataIO.LoadData.Element("root").Element("shared").Elements("item"))
+                    {
+                        lSiTSh_items.Items.Add(sh_item.Attribute("id").Value);
+                    }
+                }
+                else
+                {
+                    linkSingleToShared.Visible = false;
+                    convertSingleToShared.Visible = false;
                 }
                 #endregion
 

@@ -25,7 +25,6 @@
     <asp:PlaceHolder runat="server" ID="convertSharedToSingle">
     <span class="header_icon file_add" style="margin-top: 20px;">Verwandle in eigenständiges Element</span>
     <div class="box">
-        <%--<input type="submit" class="button" value="Verwandle" />--%>
         <asp:Button runat="server" ID="cShTSi_Button" Text="Verwandle" CssClass="button" />
         <asp:Label runat="server" ID="cShTSi_Label"></asp:Label>
     </div>
