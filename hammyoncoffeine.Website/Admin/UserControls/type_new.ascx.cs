@@ -34,16 +34,29 @@ namespace hammyoncoffeine.Website
             XElement element = new XElement("item",
                 new XAttribute("id", Page.Request.QueryString["i"]),
                 new XAttribute("type", availableTypes.SelectedValue.ToString()));
+
             // Prüfen ob die Seite in data.xml schon existiert
-            if (!DataIO.LoadData.Element("root").Elements("page").Where(pageElement => pageElement.Attribute("name").Value.ToLower().Equals(Page.Request.QueryString["p"].ToLower())).Any())
-            {
-                XElement x_page = new XElement("page",
-                    new XAttribute("name", Page.Request.QueryString["p"]));
-                DataIO.LoadData.Element("root").Add(x_page);
-            }
-            DataIO.LoadData.Element("root").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(Page.Request.QueryString["p"].ToLower())).Single().Add(element);
-            DataIO.LoadData.Save(DataIO.StorageLocation);
-            message.InnerText = "Der Type wurde erfolgreich gespeichert";
+            //if (!DataIO.LoadData.Element("root").Elements("page").Where(pageElement => pageElement.Attribute("name").Value.ToLower().Equals(Page.Request.QueryString["p"].ToLower())).Any())
+            //{
+            //    XElement x_page = new XElement("page",
+            //        new XAttribute("name", Page.Request.QueryString["p"]));
+            //    DataIO.LoadData.Element("root").Add(x_page);
+            //}
+            //DataIO.LoadData.Element("root").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(Page.Request.QueryString["p"].ToLower())).Single().Add(element);
+            //DataIO.LoadData.Save(DataIO.StorageLocation);
+
+            ItemContent ic = new ItemContent();
+            ic.elementContent = new XElement("content", "");
+            ic.folder = Page.Request.QueryString["f"];
+            ic.page = r_page;
+            ic.item = r_item;
+            ic.type = availableTypes.SelectedValue.ToString();
+            ic.shared_item = null;
+
+            if(DataIO.saveItemContent(ic))
+                message.InnerText = "Der Type wurde erfolgreich gespeichert";
+            else
+                message.InnerText = "Leider trat beim speichen des Typs ein Fehler auf.";
         }
         public List<string> getAvailableTypes()
         {
