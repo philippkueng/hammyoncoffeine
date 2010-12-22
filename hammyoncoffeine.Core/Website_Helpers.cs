@@ -35,9 +35,19 @@ namespace hammyoncoffeine.Core
             foreach (FileInfo file in directoy.GetFiles("*.htm"))
             {
                 string websiteContent;
-                using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + file.Name))
+                if (string.IsNullOrEmpty(path))
                 {
-                    websiteContent = mySR.ReadToEnd();
+                    using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + file.Name))
+                    {
+                        websiteContent = mySR.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + path + "/" + file.Name))
+                    {
+                        websiteContent = mySR.ReadToEnd();
+                    }
                 }
                 Regex extractCMSTag = new Regex("(\\<cms[^\\>]+\\>)", RegexOptions.None);
 
@@ -80,67 +90,9 @@ namespace hammyoncoffeine.Core
 
         public static XDocument newDoc()
         {
-            //List<PageItem> pageItems = new List<PageItem>();
             XDocument tempDoc = new XDocument();
-            //tempDoc.Add(new XElement("root"));
 
             tempDoc.Add(newFolder(null, "root"));
-
-            #region
-            //DirectoryInfo directoy = new DirectoryInfo(DataIO.PagesDirectory);
-            //foreach (FileInfo file in directoy.GetFiles("*.htm"))
-            //{
-            //    string websiteContent;
-            //    using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + file.Name))
-            //    {
-            //        websiteContent = mySR.ReadToEnd();
-            //    }
-            //    Regex extractCMSTag = new Regex("(\\<cms[^\\>]+\\>)", RegexOptions.None);
-
-            //    XElement page = new XElement("page",
-            //        new XAttribute("name", removeFileEnding(file.Name.ToString())));
-
-            //    foreach (Match myMatch in extractCMSTag.Matches(websiteContent))
-            //    {
-            //        page.Add(
-            //            new XElement("item",
-            //                new XAttribute("id", getNameTag(myMatch.ToString())),
-            //                new XAttribute("type", "")));
-            //    }
-
-            //    tempDoc.Element("root").Add(page);
-            //}
-            #endregion
-            #region
-            //// Nun muss noch geprüft werden, was schon vorhanden ist im data.xml...
-            //XDocument doc = DataIO.LoadData;
-            //foreach (var tempPage in tempDoc.Element("root").Elements("page"))
-            //{
-            //    foreach (var page in doc.Element("root").Elements("page"))
-            //    {
-            //        if (page.Attribute("name").Value.ToLower().Equals(tempPage.Attribute("name").Value.ToLower()))
-            //        {
-            //            // Die Seiten sind gleich...
-            //            foreach (var tempItem in tempPage.Elements("item"))
-            //            {
-            //                foreach (var item in page.Elements("item"))
-            //                {
-            //                    if (tempItem.Attribute("id").Value.ToLower().Equals(item.Attribute("id").Value.ToLower()))
-            //                    {
-            //                        // Die Items sind gleich...
-            //                        tempItem.SetAttributeValue("type", item.Attribute("type").Value);
-            //                        tempItem.SetValue(item.Value);
-            //                        // (TODO) in eine Sicherheitsdatei schreiben, die dann nach dem editieren gelöscht werden kann.
-            //                        //item.Remove();
-            //                        break;
-            //                    }
-            //                }
-            //            }
-            //            break;
-            //        }
-            //    }
-            //}
-            #endregion
 
             // (TODO) Prüfen welche Elemente noch in doc sind, und diese in eine Sicherungsdatei schreiben...
 

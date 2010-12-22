@@ -102,11 +102,32 @@ namespace hammyoncoffeine.Website
                     page_content = Regex.Replace(page_content, regex_pattern, new MatchEvaluator(template_title_replacement));
 
                     // save the new page to disk into the correct folder
-                    using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + HttpUtility.UrlEncode(convert_to_filename(page_title.Value.ToLower())) + ".htm"))
+                    if (!doesPageExists(Page.Request.QueryString["f"], convert_to_filename(page_title.Value.ToLower())))
                     {
-                        mySW.Write(page_content);
+                        if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
+                        {
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + HttpUtility.UrlEncode(convert_to_filename(page_title.Value.ToLower())) + ".htm"))
+                            {
+                                mySW.Write(page_content);
+                                mySW.Close();
+                            }
+                        }
+                        else
+                        {
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + HttpUtility.UrlEncode(convert_to_filename(page_title.Value.ToLower())) + ".htm"))
+                            {
+                                mySW.Write(page_content);
+                                mySW.Close();
+                            }
+                        }
+                        Response.Redirect(Request.Url.AbsoluteUri);
                     }
-                    Response.Redirect(Request.Url.AbsoluteUri);
+                    else
+                    {
+                        message.Visible = true;
+                        message.InnerText = "Die Datei existiert schon.";
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -119,11 +140,23 @@ namespace hammyoncoffeine.Website
             {
                 try
                 {
-                    if (!doesPageExists(pageName.Value.ToString()))
+                    if (!doesPageExists(Page.Request.QueryString["f"], pageName.Value.ToString()))
                     {
-                        using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + pageName.Value))
+                        if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
                         {
-                            mySW.Write(pageSourceCode.Text);
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + HttpUtility.UrlEncode(convert_to_filename(pageName.Value.ToLower())) + ".htm"))
+                            {
+                                mySW.Write(pageSourceCode.Text);
+                                mySW.Close();
+                            }
+                        }
+                        else
+                        {
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + HttpUtility.UrlEncode(convert_to_filename(pageName.Value.ToLower())) + ".htm"))
+                            {
+                                mySW.Write(pageSourceCode.Text);
+                                mySW.Close();
+                            }
                         }
                         Response.Redirect(Request.Url.AbsoluteUri);
                     }
@@ -143,9 +176,12 @@ namespace hammyoncoffeine.Website
             {
                 try
                 {
-                    if (!doesPageExists(fileUpload.FileName.ToString()))
+                    if (!doesPageExists(Page.Request.QueryString["f"], fileUpload.FileName.ToString()))
                     {
-                        fileUpload.SaveAs(DataIO.PagesDirectory + fileUpload.FileName.ToString());
+                        if(string.IsNullOrEmpty(Page.Request.QueryString["f"]))
+                            fileUpload.SaveAs(DataIO.PagesDirectory + fileUpload.FileName.ToString());
+                        else
+                            fileUpload.SaveAs(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + fileUpload.FileName.ToString());
                         Response.Redirect(Request.Url.AbsoluteUri);
                     }
                     else
@@ -161,9 +197,12 @@ namespace hammyoncoffeine.Website
                 }
             }
         }
-        public bool doesPageExists(string pageName)
+        public bool doesPageExists(string folderPath, string pageName)
         {
-            return File.Exists(DataIO.PagesDirectory + pageName);
+            if(string.IsNullOrEmpty(folderPath))
+                return File.Exists(DataIO.PagesDirectory + pageName);
+            else
+                return File.Exists(DataIO.PagesDirectory + folderPath + "/" + pageName);
         }
         private string template_title_replacement(Match m)
         {
