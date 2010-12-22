@@ -25,17 +25,19 @@ namespace hammyoncoffeine.Website
                 deletePage.Click += new EventHandler(deletePage_Click);
                 try
                 {
-                    using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + pageTitle.ToLower() + ".htm"))
+                    if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
                     {
-                        pageSourceCode.Text = mySR.ReadToEnd();
+                        using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + pageTitle.ToLower() + ".htm"))
+                        {
+                            pageSourceCode.Text = mySR.ReadToEnd();
+                        }
                     }
-                    try
+                    else
                     {
-                        pageTitleElement.Value = pageSourceCode.Text.Substring(pageSourceCode.Text.IndexOf("<title>") + 7, pageSourceCode.Text.IndexOf("</title>") - pageSourceCode.Text.IndexOf("<title>") - 7);
-                    }
-                    catch
-                    {
-                        pageTitleElement.Value = "Bitte definieren Sie im Quellcode ein <title> Element";
+                        using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + pageTitle.ToLower() + ".htm"))
+                        {
+                            pageSourceCode.Text = mySR.ReadToEnd();
+                        }
                     }
                 }
                 catch
@@ -59,21 +61,23 @@ namespace hammyoncoffeine.Website
 
         void save_Click(object sender, EventArgs e)
         {
-            // Hier wird alles gespeichert...
+            // save the changed page to disk
             try
             {
                 string siteContent = pageSourceCode.Text;
-                if (siteContent.Contains("<title>"))
+                if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
                 {
-                    siteContent = siteContent.Substring(0, siteContent.IndexOf("<title>") + 7) + pageTitleElement.Value.ToString() + siteContent.Substring(siteContent.IndexOf("</title>"), siteContent.Length - siteContent.IndexOf("</title>"));
+                    using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + pageTitle.ToString() + ".htm"))
+                    {
+                        mySW.Write(siteContent);
+                    }
                 }
                 else
                 {
-                    siteContent = siteContent.Substring(0, siteContent.IndexOf("</head>") - 1) + "<title>" + pageTitleElement.Value.ToString() + "</title>" + siteContent.Substring(siteContent.IndexOf("</head>"));
-                }
-                using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + pageTitle.ToString() + ".htm"))
-                {
-                    mySW.Write(siteContent);
+                    using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + pageTitle.ToString() + ".htm"))
+                    {
+                        mySW.Write(siteContent);
+                    }
                 }
                 message.InnerText = "Der neue Quellcode wurde erfolgreich gespeichert.";
             }
@@ -81,8 +85,6 @@ namespace hammyoncoffeine.Website
             {
                 message.InnerText = "Beim schreiben des Quellcodes in die Datei ist ein Fehler aufgetreten. " + ex.Message.ToString();
             }
-
-            //message.InnerText = "Momentan können leider noch keine Änderungen gespeichert werden.";
         }
     }
 }
