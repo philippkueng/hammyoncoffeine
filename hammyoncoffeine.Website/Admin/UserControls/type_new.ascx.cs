@@ -17,14 +17,16 @@ namespace hammyoncoffeine.Website
         public string item = "";
         public string r_page = "";
         public string r_item = "";
+        public string r_folder = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             r_page = Page.Request.QueryString["p"];
             r_item = Page.Request.QueryString["i"];
+            r_folder = Page.Request.QueryString["f"];
 
-            page = "<a href='Default.aspx?c=content&p=" + Page.Request.QueryString["p"] + "'>" + Page.Request.QueryString["p"] + "</a>";
-            item = "<a href='Default.aspx?c=content&p=" + Page.Request.QueryString["p"] + "&i=" + Page.Request.QueryString["i"] + "'>" + Page.Request.QueryString["i"] + "</a>";
-            availableTypes.DataSource = getAvailableTypes();
+
+            page = "<a href='Default.aspx?c=content&f=" + r_folder + "&p=" + r_page + "'>" + r_page + "</a>";
+            item = "<a href='Default.aspx?c=content&f=" + r_folder + "&p=" + r_page + "&i=" + r_item + "'>" + r_item + "</a>"; availableTypes.DataSource = getAvailableTypes();
             availableTypes.DataBind();
         }
         protected void save_OnClick(object sender, EventArgs e)

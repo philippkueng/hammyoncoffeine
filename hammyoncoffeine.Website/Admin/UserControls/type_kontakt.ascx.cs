@@ -15,10 +15,19 @@ namespace hammyoncoffeine.Website
     {
         public string page = "";
         public string item = "";
+        public string r_page = "";
+        public string r_item = "";
+        public string r_folder = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            page = "<a href='Default.aspx?c=content&p=" + Page.Request.QueryString["p"] + "'>" + Page.Request.QueryString["p"] + "</a>";
-            item = "<a href='Default.aspx?c=content&p=" + Page.Request.QueryString["p"] + "&i=" + Page.Request.QueryString["i"] + "'>" + Page.Request.QueryString["i"] + "</a>";
+            r_page = Page.Request.QueryString["p"];
+            r_item = Page.Request.QueryString["i"];
+            r_folder = Page.Request.QueryString["f"];
+
+
+            page = "<a href='Default.aspx?c=content&f=" + r_folder + "&p=" + r_page + "'>" + r_page + "</a>";
+            item = "<a href='Default.aspx?c=content&f=" + r_folder + "&p=" + r_page + "&i=" + r_item + "'>" + r_item + "</a>";
+            
             //txtContent.Text = Helpers.newDoc().Element("root").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(Page.Request.QueryString["p"].ToLower())).Single().Elements("item").Where(s => s.Attribute("id").Value.ToLower().Equals(Page.Request.QueryString["i"].ToLower())).Single().Value.ToString();
             var accordingData = Website_Helpers.newDoc().Element("root").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(Page.Request.QueryString["p"].ToLower())).Single().Elements("item").Where(s => s.Attribute("id").Value.ToLower().Equals(Page.Request.QueryString["i"].ToLower())).Single();
 

@@ -25,8 +25,8 @@ namespace hammyoncoffeine.Website
             r_folder = Page.Request.QueryString["f"];
 
 
-            page = "<a href='Default.aspx?c=content&p=" + r_page + "'>" + r_page + "</a>";
-            item = "<a href='Default.aspx?c=content&p=" + r_page + "&i=" + r_item + "'>" + r_item + "</a>";
+            page = "<a href='Default.aspx?c=content&f=" + r_folder + "&p=" + r_page + "'>" + r_page + "</a>";
+            item = "<a href='Default.aspx?c=content&f=" + r_folder + "&p=" + r_page + "&i=" + r_item + "'>" + r_item + "</a>";
 
             shared_item = DataIO.loadItem(r_folder, r_page, r_item).shared_item;
             txtContent.Text = DataIO.loadItem(r_folder, r_page, r_item).elementContent.Value.ToString();
