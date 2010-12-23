@@ -486,44 +486,51 @@ namespace hammyoncoffeine.Core
                     else
                     {
                         string[] folderpath = folder.Split('/');
-                        if (folderpath.Length == 2)
-                        {
-                            // folder does not yet exist
-                            if (!DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Any())
-                                DataIO.LoadData.Element("root").Add(new XElement("folder", new XAttribute("name", folderpath[1])));
-                            
-                            Xfolder = DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Single();
-                        }
-                        else if (folderpath.Length == 3)
-                        {
-                            // folder does not yet exist
-                            if (!DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Any())
-                                DataIO.LoadData.Element("root").Elements("folder").Where(u => u.Attribute("name").Value.ToLower().Equals(folderpath[1])).Single().Add(new XElement("folder", new XAttribute("name", folderpath[2])));
-                                
-                            Xfolder = DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Single();
 
+                        #region loop to create folders if they arent already in the data.xml
+                        for (int i = 1; i < (folderpath.Length); i++)
+                        {
+                            if (i == 1)
+                            {
+                                // folder does not yet exist
+                                if (!DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Any())
+                                    DataIO.LoadData.Element("root").Add(new XElement("folder", new XAttribute("name", folderpath[1])));
+                            }
+                            else if (i == 2)
+                            {
+                                // folder does not yet exist
+                                if (!DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Any())
+                                    DataIO.LoadData.Element("root").Elements("folder").Where(u => u.Attribute("name").Value.ToLower().Equals(folderpath[1])).Single().Add(new XElement("folder", new XAttribute("name", folderpath[2])));
+                            }
+                            else if (i == 3)
+                            {
+                                // folder does not yet exist
+                                if (!DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[3])).Any())
+                                    DataIO.LoadData.Element("root").Elements("folder").Where(u => u.Attribute("name").Value.ToLower().Equals(folderpath[1])).Single().Elements("folder").Where(v => v.Attribute("name").Value.ToLower().Equals(folderpath[2])).Single().Add(new XElement("folder", new XAttribute("name", folderpath[3])));
+                            }
+                            else if (i == 4)
+                            {
+                                // folder does not yet exist
+                                if (!DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[3])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[4])).Any())
+                                    DataIO.LoadData.Element("root").Elements("folder").Where(u => u.Attribute("name").Value.ToLower().Equals(folderpath[1])).Single().Elements("folder").Where(v => v.Attribute("name").Value.ToLower().Equals(folderpath[2])).Single().Elements("folder").Where(q => q.Attribute("name").Value.ToLower().Equals(folderpath[3])).Single().Add(new XElement("folder", new XAttribute("name", folderpath[4])));
+                            }
+                            else // not yet implemented
+                            {
+                                return false;
+                            }
                         }
+                        #endregion
+
+                        if (folderpath.Length == 2)
+                            Xfolder = DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Single();
+                        else if (folderpath.Length == 3)
+                            Xfolder = DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Single();
                         else if (folderpath.Length == 4)
-                        {
-                            // folder does not yet exist
-                            if (!DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[3])).Any())
-                                DataIO.LoadData.Element("root").Elements("folder").Where(u => u.Attribute("name").Value.ToLower().Equals(folderpath[1])).Single().Elements("folder").Where(v=>v.Attribute("name").Value.ToLower().Equals(folderpath[2])).Single().Add(new XElement("folder", new XAttribute("name", folderpath[3])));
-                            
                             Xfolder = DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[3])).Single();
-                        }
                         else if (folderpath.Length == 5)
-                        {
-                            // folder does not yet exist
-                            if (!DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[3])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[4])).Any())
-                                DataIO.LoadData.Element("root").Elements("folder").Where(u => u.Attribute("name").Value.ToLower().Equals(folderpath[1])).Single().Elements("folder").Where(v => v.Attribute("name").Value.ToLower().Equals(folderpath[2])).Single().Elements("folder").Where(q=>q.Attribute("name").Value.ToLower().Equals(folderpath[3])).Single().Add(new XElement("folder", new XAttribute("name", folderpath[4])));
- 
                             Xfolder = DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folderpath[1])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[2])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[3])).Elements("folder").Where(s => s.Attribute("name").Value.ToLower().Equals(folderpath[4])).Single();
-                        }
-                        else // not yet implemented
-                        {
+                        else
                             return false;
-                        }
-                        //Xfolder = getFolder(elementContent, folder.Split('/'), 0);
                     }
 
                     XElement Xpage;
