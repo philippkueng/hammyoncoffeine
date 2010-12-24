@@ -131,7 +131,7 @@ namespace hammyoncoffeine.Core
                         // create an empty data.xml file and save to disk
                         doc = new XDocument(
                             new XDeclaration("1.0", "utf-8", "yes"),
-                            new XElement("root", ""));
+                            new XElement("root", new XElement("shared","")));
                         doc.Save(StorageLocation);
                     }
 
@@ -592,9 +592,28 @@ namespace hammyoncoffeine.Core
             {
                 if (saveItemContent(elementContent, folder, page, item, type, shared_item))
                 {
-                    // delete the non-shared entry
-                    DataIO.LoadData.Element("root").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Elements("item").Where(s => s.Attribute("id").Value.ToLower().Equals(item.ToLower())).Single().Remove();
+                    #region delete the non-shared entry
+                    string[] folders = folder.Split('/');
 
+                    if (folders.Length == 1) // root
+                    {
+                        DataIO.LoadData.Element("root").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Elements("item").Where(s => s.Attribute("id").Value.ToLower().Equals(item.ToLower())).Single().Remove();
+                    }
+                    else if (folder.Length == 2)
+                    {
+                        DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folders[1].ToLower())).Single().Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Elements("item").Where(s => s.Attribute("id").Value.ToLower().Equals(item.ToLower())).Single().Remove();
+                    }
+                    else if (folders.Length == 3)
+                    {
+                        DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folders[1].ToLower())).Single().Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folders[2].ToLower())).Single().Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Elements("item").Where(s => s.Attribute("id").Value.ToLower().Equals(item.ToLower())).Single().Remove();
+                    }
+                    else if (folders.Length == 4)
+                    {
+                        DataIO.LoadData.Element("root").Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folders[1].ToLower())).Single().Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folders[2].ToLower())).Single().Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folders[3].ToLower())).Single().Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Elements("item").Where(s => s.Attribute("id").Value.ToLower().Equals(item.ToLower())).Single().Remove();
+                    }
+                    else
+                        return false;
+                    #endregion
                     DataIO.LoadData.Save(DataIO.StorageLocation);
                     HttpContext.Current.Cache.Remove("page_string" + page.ToLower());
                     HttpContext.Current.Cache.Remove("page_placeholder" + page.ToLower());
@@ -625,7 +644,7 @@ namespace hammyoncoffeine.Core
                     // if there is no page with the same name as the current one, create it first
                     if (!s_items.Single().Element("pages").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Any())
                     {
-                        s_items.Single().Element("pages").Add(new XElement("page", new XAttribute("name", page)));
+                        s_items.Single().Element("pages").Add(new XElement("page", new XAttribute("name", page), new XAttribute("folder", folder)));
                     }
 
                     // add the item to the page inside the shared_item
@@ -658,7 +677,7 @@ namespace hammyoncoffeine.Core
         }
 
         // remove item from shared items and add a copy of the shared item content to the single item content
-        public static bool convertSharedToSingleItem(string page, string item, string shared_item)
+        public static bool convertSharedToSingleItem(string folder, string page, string item, string shared_item)
         {
             try
             {
@@ -717,27 +736,6 @@ namespace hammyoncoffeine.Core
                 return false;
             }
         }
-
-        // call the metod initially with array_location = 1
-        public void create_folder(string[] folder_name, int array_location, XElement folder)
-        {
-            //XElement subelem = folder.Element("node");
-
-
-
-            //if (dir == null)
-            //    dir = new DirectoryInfo(PagesDirectory);
-
-            //if (!dir.GetDirectories().Where(d => d.Name == folder_name[array_location]).Any())
-            //{
-            //    DirectoryInfo sub_dir = dir.CreateSubdirectory(folder_name[array_location]);
-            //    array_location++;
-            //    if (folder_name.Length > array_location)
-            //        create_folder(folder_name, array_location, sub_dir);
-            //}
-            
-        }
-
         #endregion
 
         
@@ -938,14 +936,14 @@ namespace hammyoncoffeine.Core
             }
             else
             {
+                var sharedXItem = loadSharedXItem(folder, page, item);
+                if (sharedXItem != null)
+                    return sharedXItem;
+
                 var xItem = loadXItem_recursive(DataIO.LoadData.Element("root"), folder.Split('/'), 0, page, item);
                 if (xItem != null)
                     return xItem;
 
-                var sharedXItem = loadSharedXItem(folder, page, item);
-                if (sharedXItem != null)
-                    return sharedXItem;
-                
                 else
                     return null;
             }

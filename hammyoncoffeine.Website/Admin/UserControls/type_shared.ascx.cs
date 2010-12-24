@@ -43,7 +43,7 @@ namespace hammyoncoffeine.Website
                 else
                 {
                     linkSingleToShared.Visible = false;
-                    convertSingleToShared.Visible = false;
+                    //convertSingleToShared.Visible = false;
                 }
                 #endregion
 
@@ -61,7 +61,7 @@ namespace hammyoncoffeine.Website
 
         void cShTSi_Button_Click(object sender, EventArgs e)
         {
-            if (DataIO.convertSharedToSingleItem(page, item, DataIO.loadItem(null, page, item).shared_item))
+            if (DataIO.convertSharedToSingleItem(folder, page, item, DataIO.loadItem(null, page, item).shared_item))
                 cShTSi_Label.Text = "Das Element wurde erfolgreich entknüpft.";
             else
                 cShTSi_Label.Text = "Beim entknüpfen ist ein Fehler aufgetreten.";
@@ -70,7 +70,8 @@ namespace hammyoncoffeine.Website
         void lSiTSh_Button_Click(object sender, EventArgs e)
         {
             if (DataIO.linkSingleToSharedItem(folder, page, item, lSiTSh_items.SelectedItem.Value))
-                lSiTSh_Label.Text = "Das Element wurde erfolgreich verknüpft.";
+                Response.Redirect(Request.Url.AbsoluteUri);
+            //lSiTSh_Label.Text = "Das Element wurde erfolgreich verknüpft.";
             else
                 lSiTSh_Label.Text = "Leider trat beim verknüpfen ein Fehler auf.";
         }
@@ -78,13 +79,13 @@ namespace hammyoncoffeine.Website
         void cSiTSh_Button_Click(object sender, EventArgs e)
         {
             string shared_item_name = cSiTSh_Textbox.Text;
-            if (string.IsNullOrEmpty(shared_item_name))
+            if (string.IsNullOrEmpty(shared_item_name)) // user entered not name for the shared item
                 cSiTSh_Label.Text = "Bitte Namen für Modul eingeben";
             else if (DataIO.LoadData.Element("root").Element("shared").Elements("item").Where(t => t.Attribute("id").Value.ToLower().Equals(shared_item_name.ToLower())).Any())
                 cSiTSh_Label.Text = "Dieser Name ist bereits vergeben, bitte wählen Sie einen anderen.";
             else
             {
-                if (DataIO.convertSingleToSharedItem(DataIO.loadItem(folder, page, item).elementContent, folder, page, item, DataIO.loadItem(null, page, item).type, shared_item_name))
+                if (DataIO.convertSingleToSharedItem(DataIO.loadItem(folder, page, item).elementContent, folder, page, item, DataIO.loadItem(folder, page, item).type, shared_item_name))
                     cSiTSh_Label.Text = "Element wurde erfolgreich umgewandelt";
                 else
                     cSiTSh_Label.Text = "Leider trat beim konvertieren ein Fehler auf.";

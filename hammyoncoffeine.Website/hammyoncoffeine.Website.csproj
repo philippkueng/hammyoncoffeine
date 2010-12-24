@@ -651,6 +651,7 @@
   <ItemGroup>
     <Folder Include="App_Data\pages\bla\folder2\folder1\" />
     <Folder Include="App_Data\pages\bla\foo\" />
+    <Folder Include="App_Data\pages\foo\" />
     <Folder Include="App_Data\pages\sample\bla\" />
     <Folder Include="App_Data\pages\sample\folder1\" />
     <Folder Include="App_Data\pages\sample\foo\" />
