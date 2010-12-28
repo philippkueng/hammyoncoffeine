@@ -348,6 +348,7 @@
     <Content Include="Admin\tiny_mce\utils\validate.js" />
     <Content Include="Admin\UserControls\activate.ascx" />
     <Content Include="Admin\UserControls\content.ascx" />
+    <Content Include="Admin\UserControls\type_navigation.ascx" />
     <Content Include="Admin\UserControls\type_shared.ascx" />
     <Content Include="Admin\UserControls\files.ascx" />
     <Content Include="Admin\UserControls\files_detail.ascx" />
@@ -378,6 +379,7 @@
     </Content>
     <Content Include="App_Data\Users.xml" />
     <Content Include="bin\Freshclickmedia.Web.dll" />
+    <Content Include="modules\navigation.ascx" />
     <Content Include="pkstudio_logo.png" />
     <Content Include="css\960.css" />
     <Content Include="css\hoc_admin.css" />
@@ -461,6 +463,13 @@
     </Compile>
     <Compile Include="Admin\UserControls\content.ascx.designer.cs">
       <DependentUpon>content.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserControls\type_navigation.ascx.cs">
+      <DependentUpon>type_navigation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserControls\type_navigation.ascx.designer.cs">
+      <DependentUpon>type_navigation.ascx</DependentUpon>
     </Compile>
     <Compile Include="Admin\UserControls\type_shared.ascx.cs">
       <DependentUpon>type_shared.ascx</DependentUpon>
@@ -626,6 +635,13 @@
     <Compile Include="modules\kontakt.ascx.designer.cs">
       <DependentUpon>kontakt.ascx</DependentUpon>
     </Compile>
+    <Compile Include="modules\navigation.ascx.cs">
+      <DependentUpon>navigation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\navigation.ascx.designer.cs">
+      <DependentUpon>navigation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="modules\standard_html.ascx.cs">
       <DependentUpon>standard_html.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -652,9 +668,9 @@
     <Folder Include="App_Data\pages\bla\folder2\folder1\" />
     <Folder Include="App_Data\pages\bla\foo\" />
     <Folder Include="App_Data\pages\foo\" />
-    <Folder Include="App_Data\pages\sample\bla\" />
-    <Folder Include="App_Data\pages\sample\folder1\" />
-    <Folder Include="App_Data\pages\sample\foo\" />
+    <Folder Include="App_Data\pages\Sample\Bla\" />
+    <Folder Include="App_Data\pages\Sample\folder1\" />
+    <Folder Include="App_Data\pages\Sample\foo\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\hammyoncoffeine.Core\hammyoncoffeine.Core.csproj">
