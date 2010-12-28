@@ -27,14 +27,14 @@ namespace hammyoncoffeine.Website
                 {
                     if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
                     {
-                        using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + pageTitle.ToLower() + ".htm"))
+                        using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + pageTitle.ToLower() + ".htm", System.Text.Encoding.UTF8))
                         {
                             pageSourceCode.Text = mySR.ReadToEnd();
                         }
                     }
                     else
                     {
-                        using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + pageTitle.ToLower() + ".htm"))
+                        using (StreamReader mySR = new StreamReader(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + pageTitle.ToLower() + ".htm", System.Text.Encoding.UTF8))
                         {
                             pageSourceCode.Text = mySR.ReadToEnd();
                         }
@@ -67,14 +67,14 @@ namespace hammyoncoffeine.Website
                 string siteContent = pageSourceCode.Text;
                 if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
                 {
-                    using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + pageTitle.ToString() + ".htm"))
+                    using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + pageTitle.ToString() + ".htm", false, System.Text.Encoding.UTF8))
                     {
                         mySW.Write(siteContent);
                     }
                 }
                 else
                 {
-                    using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + pageTitle.ToString() + ".htm"))
+                    using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + pageTitle.ToString() + ".htm" ,false, System.Text.Encoding.UTF8))
                     {
                         mySW.Write(siteContent);
                     }

@@ -93,7 +93,7 @@ namespace hammyoncoffeine.Website
                 {
                     // read the file
                     HtmlDocument doc = new HtmlDocument();
-                    doc.Load(hammyoncoffeine.Core.DataIO.VirtualLocation + "/files/page_templates/" + available_page_templates.SelectedValue);
+                    doc.Load(hammyoncoffeine.Core.DataIO.VirtualLocation + "/files/page_templates/" + available_page_templates.SelectedValue,System.Text.Encoding.UTF8);
                     string page_content = doc.DocumentNode.WriteTo();
 
                     string regex_pattern = "__(title)\\,([\\w0-9]+)__";
@@ -106,7 +106,8 @@ namespace hammyoncoffeine.Website
                     {
                         if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
                         {
-                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + HttpUtility.UrlEncode(convert_to_filename(page_title.Value.ToLower())) + ".htm"))
+                            //System.Text.Encoding.UTF8
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + HttpUtility.UrlEncode(convert_to_filename(page_title.Value.ToLower())) + ".htm", false, System.Text.Encoding.UTF8))
                             {
                                 mySW.Write(page_content);
                                 mySW.Close();
@@ -114,7 +115,7 @@ namespace hammyoncoffeine.Website
                         }
                         else
                         {
-                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + HttpUtility.UrlEncode(convert_to_filename(page_title.Value.ToLower())) + ".htm"))
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + HttpUtility.UrlEncode(convert_to_filename(page_title.Value.ToLower())) + ".htm", false, System.Text.Encoding.UTF8))
                             {
                                 mySW.Write(page_content);
                                 mySW.Close();
@@ -144,7 +145,7 @@ namespace hammyoncoffeine.Website
                     {
                         if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
                         {
-                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + HttpUtility.UrlEncode(convert_to_filename(pageName.Value.ToLower())) + ".htm"))
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + HttpUtility.UrlEncode(convert_to_filename(pageName.Value.ToLower())) + ".htm", false, System.Text.Encoding.UTF8))
                             {
                                 mySW.Write(pageSourceCode.Text);
                                 mySW.Close();
@@ -152,7 +153,7 @@ namespace hammyoncoffeine.Website
                         }
                         else
                         {
-                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + HttpUtility.UrlEncode(convert_to_filename(pageName.Value.ToLower())) + ".htm"))
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + HttpUtility.UrlEncode(convert_to_filename(pageName.Value.ToLower())) + ".htm", false, System.Text.Encoding.UTF8))
                             {
                                 mySW.Write(pageSourceCode.Text);
                                 mySW.Close();

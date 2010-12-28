@@ -38,9 +38,9 @@ namespace hammyoncoffeine.Core
                     //hammyoncoffeine.Core.Website_Helpers.sendError("p - " + p + ":: f - " + f); 
 
                     if(string.IsNullOrEmpty(f))
-                        doc.Load(DataIO.PagesDirectory + p + ".htm");
+                        doc.Load(DataIO.PagesDirectory + p + ".htm", System.Text.Encoding.UTF8);
                     else
-                        doc.Load(DataIO.PagesDirectory + f + "/" + p + ".htm");
+                        doc.Load(DataIO.PagesDirectory + f + "/" + p + ".htm", System.Text.Encoding.UTF8);
                     
                     // format all cms correctly so that they can be extracted via regex
                     doc = CleanAndFormatCMSElements(doc);
