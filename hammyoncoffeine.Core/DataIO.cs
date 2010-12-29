@@ -372,6 +372,80 @@ namespace hammyoncoffeine.Core
             return doc;
         }
 
+        #region remove Page
+        /// <summary>
+        /// removes a page given by folder path and page name from the data.xml file
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public static bool removePage(string folder, string page)
+        {
+            try
+            {
+                // delete from shared section
+                foreach (var item in LoadData.Element("root").Element("shared").Elements("item"))
+                {
+                    if (item.Element("pages").Elements("page").Where(t => t.Attribute("name").Value.ToString().ToLower().Equals(page.ToLower()) && t.Attribute("folder").Value.ToString().ToLower().Equals(folder.ToLower())).Any())
+                    {
+                        item.Element("pages").Elements("page").Where(t => t.Attribute("name").Value.ToString().ToLower().Equals(page.ToLower()) && t.Attribute("folder").Value.ToString().ToLower().Equals(folder.ToLower())).Remove();
+                        DataIO.LoadData.Save(DataIO.StorageLocation);
+                    }
+                }
+
+                // check single section
+                if (removePage_recursive(folder.Split('/'), 1, LoadData.Element("root"), page))
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                Website_Helpers.sendError(ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// recursively move through folders and look for the specific page to delete
+        /// will fail silently if folder or page is not found
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <param name="folder_location"></param>
+        /// <param name="xfolder"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public static bool removePage_recursive(string[] folder, int folder_location, XElement xfolder, string page)
+        {
+            try
+            {
+                if (folder_location < (folder.Length)) // find folder
+                {
+                    if (xfolder.Elements("folder").Where(t => t.Attribute("name").Value.ToLower().Equals(folder[folder_location].ToLower())).Any())
+                    {
+                        return removePage_recursive(folder, (folder_location + 1), xfolder.Elements("folder").Where(v => v.Attribute("name").Value.ToLower().Equals(folder[folder_location].ToLower())).Single(), page);
+                    }
+                    return true;
+                }
+                else // find page
+                {
+                    if (xfolder.Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Any())
+                    {
+                        xfolder.Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Remove();
+                        DataIO.LoadData.Save(DataIO.StorageLocation);
+                        return true;
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Website_Helpers.sendError(ex);
+                return false;
+            }
+        }
+        #endregion
+
         public static bool saveItemContent(ItemContent ic)
         {
             if (saveItemContent(ic.elementContent,ic.folder, ic.page, ic.item, ic.type, ic.shared_item))
@@ -485,7 +559,7 @@ namespace hammyoncoffeine.Core
                         Xfolder = DataIO.LoadData.Element("root");
                     else
                     {
-                        string[] folderpath = folder.Split('/');
+                        string[] folderpath = folder.ToLower().Split('/');
 
                         #region loop to create folders if they arent already in the data.xml
                         for (int i = 1; i < (folderpath.Length); i++)

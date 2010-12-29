@@ -55,15 +55,19 @@ namespace hammyoncoffeine.Website
 
         void deletePage_Click(object sender, EventArgs e)
         {
+            #region delete page as html file from disk
             if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
                 File.Delete(DataIO.PagesDirectory + Page.Request.QueryString["p"] + ".htm");
             else
                 File.Delete(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + Page.Request.QueryString["p"] + ".htm");
+            #endregion
 
-            // delete the data.xml entry aswell
-
-
-            Response.Redirect("~/Admin/Default.aspx?c=content");
+            #region delete page from data.xml
+            if (DataIO.removePage(Page.Request.QueryString["f"], Page.Request.QueryString["p"]))
+                Response.Redirect("~/Admin/Default.aspx?c=content");
+            else
+                message.InnerText = "Leider trat beim löschen der Seite in der Datenbank ein Fehler auf";
+            #endregion
         }
 
         void save_Click(object sender, EventArgs e)
