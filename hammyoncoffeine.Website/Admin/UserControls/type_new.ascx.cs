@@ -58,7 +58,7 @@ namespace hammyoncoffeine.Website
             if(DataIO.saveItemContent(ic))
                 message.InnerText = "Der Type wurde erfolgreich gespeichert";
             else
-                message.InnerText = "Leider trat beim speichen des Typs ein Fehler auf.";
+                message.InnerText = "Leider trat beim speichern des Typs ein Fehler auf.";
         }
         public List<string> getAvailableTypes()
         {
