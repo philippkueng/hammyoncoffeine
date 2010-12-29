@@ -55,7 +55,14 @@ namespace hammyoncoffeine.Website
 
         void deletePage_Click(object sender, EventArgs e)
         {
-            File.Delete(DataIO.PagesDirectory + Page.Request.QueryString["p"] + ".htm");
+            if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
+                File.Delete(DataIO.PagesDirectory + Page.Request.QueryString["p"] + ".htm");
+            else
+                File.Delete(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + Page.Request.QueryString["p"] + ".htm");
+
+            // delete the data.xml entry aswell
+
+
             Response.Redirect("~/Admin/Default.aspx?c=content");
         }
 
