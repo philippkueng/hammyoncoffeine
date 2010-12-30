@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using System.IO;
+using HtmlAgilityPack;
+using hammyoncoffeine.Core;
 
 namespace hammyoncoffeine.Website.Modules
 {
@@ -66,10 +68,10 @@ namespace hammyoncoffeine.Website.Modules
                     // item is not default.htm
                     if (!item.ToLower().Equals("default.htm"))
                     {
-                        if(item.ToLower().Equals(page.ToLower() + ".htm"))
-                            output += "<li class='active " + item.Replace(".htm", "") + " page'><a href='/" + path + item.Replace(".htm", ".aspx") + "'>" + item.Replace(".htm", "") + "</a></li>";
-                        else
-                            output += "<li class='" + item.Replace(".htm", "") + " page'><a href='/" + path + item.Replace(".htm", ".aspx") + "'>" + item.Replace(".htm", "") + "</a></li>";
+                        if(item.ToLower().Equals(page.ToLower() + ".htm")) // is selected page
+                            output += "<li class='active " + item.Replace(".htm", "") + " page'><a href='/" + path + item.Replace(".htm", ".aspx") + "'>" + get_title_from_page(path, item.Replace(".htm", "")) + "</a></li>";
+                        else // page is not selected but in the same folder
+                            output += "<li class='" + item.Replace(".htm", "") + " page'><a href='/" + path + item.Replace(".htm", ".aspx") + "'>" + get_title_from_page(path, item.Replace(".htm", "")) + "</a></li>";
                     }
                 }
                 #endregion
@@ -81,10 +83,10 @@ namespace hammyoncoffeine.Website.Modules
                     {
                         // the folder item is the active one
                         if (folder_number > 0 && item.ToLower().Equals(folder[folder.Length - folder_number].ToLower()) && (folder_number <= 1))
-                            output += "<li class='active " + item + " folder'><a href='/" + path + item + "/default.aspx'>" + item + "</a></li>";
+                            output += "<li class='active " + item + " folder'><a href='/" + path + item + "/default.aspx'>" + get_title_from_page(path + item, "default") + "</a></li>";
                         // the folder item is a non active one
                         else
-                            output += "<li class='" + item + " folder'><a href='/" + path + item + "/default.aspx'>" + item + "</a></li>";
+                            output += "<li class='" + item + " folder'><a href='/" + path + item + "/default.aspx'>" + get_title_from_page(path + item, "default") + "</a></li>";
 
                         // do this recursively for subfolders
                         if (folder_number > 0 && item.ToLower().Equals(folder[folder.Length - folder_number].ToLower()))
@@ -105,6 +107,20 @@ namespace hammyoncoffeine.Website.Modules
                 result += folder[i] + "/";
             }
             return result;
+        }
+
+        /// <summary>
+        /// gets the content of the title element inside the pages html>head section
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private string get_title_from_page(string folderpath, string page)
+        {
+            HtmlDocument doc = HTMLWorker.GetPageByName(page, folderpath);
+            if (doc == null)
+                return null;
+            else
+                return doc.DocumentNode.SelectSingleNode("//html//head//title").InnerText;
         }
         
 
