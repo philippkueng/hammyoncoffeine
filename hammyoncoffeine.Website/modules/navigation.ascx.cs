@@ -34,6 +34,7 @@ namespace hammyoncoffeine.Website.Modules
         public string nav_for_folder(string[] folder, int folder_number)
         {
             DirectoryInfo dir;
+            #region generate DirectoryInfo for current iteration
             string path = generate_path_from_array(folder, folder.Length - folder_number - 1);
             if (folder.Length > 1)
                 dir = new DirectoryInfo(hammyoncoffeine.Core.DataIO.VirtualLocation + "pages/" + path);
@@ -41,8 +42,8 @@ namespace hammyoncoffeine.Website.Modules
             {
                 dir = new DirectoryInfo(hammyoncoffeine.Core.DataIO.VirtualLocation + "pages");
             }
+            #endregion
 
-            
 
             List<string> files_and_folders = new List<string>();
             #region add files and folders from the current directory to list
@@ -56,27 +57,41 @@ namespace hammyoncoffeine.Website.Modules
             }
             #endregion
 
-
             string output = "<ul class='" + dir.Name + " folder'>";
             foreach (string item in files_and_folders.OrderBy(a=>a))
             {
-                if (item.ToLower().Contains(".htm")) // item is a page
+                #region item is a page
+                if (item.ToLower().Contains(".htm"))
                 {
-                    if(!item.ToLower().Equals("default.htm"))
-                        output += "<li class='" + item.Replace(".htm", "") + " page'><a href='/" + path + item.Replace(".htm", ".aspx") + "'>" + item.Replace(".htm", "") + "</a></li>";
+                    // item is not default.htm
+                    if (!item.ToLower().Equals("default.htm"))
+                    {
+                        if(item.ToLower().Equals(page.ToLower() + ".htm"))
+                            output += "<li class='active " + item.Replace(".htm", "") + " page'><a href='/" + path + item.Replace(".htm", ".aspx") + "'>" + item.Replace(".htm", "") + "</a></li>";
+                        else
+                            output += "<li class='" + item.Replace(".htm", "") + " page'><a href='/" + path + item.Replace(".htm", ".aspx") + "'>" + item.Replace(".htm", "") + "</a></li>";
+                    }
                 }
-                else // item is a directory
+                #endregion
+                #region item is a directory
+                else
                 {
                     // check if folder has a default file, if not do not list it
                     if (dir.GetDirectories(item, SearchOption.TopDirectoryOnly).Single().GetFiles("default.htm", SearchOption.TopDirectoryOnly).Any())
                     {
-                        output += "<li class='" + item + " folder'><a href='/" + path + item + "/default.aspx'>" + item + "</a></li>";
+                        // the folder item is the active one
+                        if (folder_number > 0 && item.ToLower().Equals(folder[folder.Length - folder_number].ToLower()) && (folder_number <= 1))
+                            output += "<li class='active " + item + " folder'><a href='/" + path + item + "/default.aspx'>" + item + "</a></li>";
+                        // the folder item is a non active one
+                        else
+                            output += "<li class='" + item + " folder'><a href='/" + path + item + "/default.aspx'>" + item + "</a></li>";
+
+                        // do this recursively for subfolders
                         if (folder_number > 0 && item.ToLower().Equals(folder[folder.Length - folder_number].ToLower()))
-                        {
                             output += nav_for_folder(folder, folder_number - 1);
-                        }
                     }
                 }
+                #endregion
             }
             output += "</ul>";
             return output;
