@@ -135,25 +135,25 @@ namespace hammyoncoffeine.Website
             else // Es wird eine Gesamtansicht gezeigt...
             {
                 #region folderStuff
-                
+
+                #region display the folders "title bar"
+                HtmlGenericControl folder_title_container = new HtmlGenericControl("ul");
+                folder_title_container.Attributes.Add("class", "content_header");
+                HtmlGenericControl folder_title = new HtmlGenericControl("li");
+                folder_title.Attributes.Add("class", "folders_title");
+                folder_title.InnerText = "Ordner";
+                folder_title_container.Controls.Add(folder_title);
+                content.Controls.Add(folder_title_container);
+                #endregion
+
+                // add the control to create new folders and delete old ones
+                content.Controls.Add(LoadControl("folders_add.ascx"));
 
                 if (doc.Element("root").Elements("folder").Any())
-                {                  
-                    #region folder title
-                    HtmlGenericControl folder_title_container = new HtmlGenericControl("ul");
-                    folder_title_container.Attributes.Add("class", "content_header");
-                    HtmlGenericControl folder_title = new HtmlGenericControl("li");
-                    folder_title.Attributes.Add("class", "folders_title");
-                    folder_title.InnerText = "Ordner";
-                    folder_title_container.Controls.Add(folder_title);
-                    content.Controls.Add(folder_title_container);
-                    #endregion
-
+                {            
                     HtmlGenericControl folderItems_ul = new HtmlGenericControl("ul");
                     folderItems_ul.Attributes.Add("class", "content_content");
-                    
-                    //var folders = getFolder(doc.Element("root"), folderName.Split('/'), 0);
-
+                   
                     foreach (var folder in folders.Elements("folder"))
                     {
                         HtmlGenericControl folderItems_li = new HtmlGenericControl("li");
@@ -167,8 +167,6 @@ namespace hammyoncoffeine.Website
                         folderItems_ul.Controls.Add(folderItems_li);
                     }
                     content.Controls.Add(folderItems_ul);
-
-
                 }
                 else // display something to create new folders
                 {
