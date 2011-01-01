@@ -87,6 +87,7 @@ namespace hammyoncoffeine.Website
 
         void addPage_Click(object sender, EventArgs e)
         {
+            #region add a new page via template
             if (pageAddOptions.SelectedIndex == 1)
             {
                 try
@@ -101,26 +102,41 @@ namespace hammyoncoffeine.Website
                     // replace the keywords with the actual title value
                     page_content = Regex.Replace(page_content, regex_pattern, new MatchEvaluator(template_title_replacement));
 
-                    // save the new page to disk into the correct folder
-                    if (!doesPageExists(Page.Request.QueryString["f"], convert_to_filename(page_title.Value.ToLower())))
+                    string folder_path = Page.Request.QueryString["f"];
+                    string page_name = convert_to_filename(page_title.Value.ToLower());
+
+                    #region if page title is the same as the folder name the page is directly beneath, rename the page to default
+                    if (!string.IsNullOrEmpty(folder_path)) // folder is null --> is at root level
                     {
-                        if (string.IsNullOrEmpty(Page.Request.QueryString["f"]))
+                        string[] folders = folder_path.Split('/');
+                        if (folders[folders.Length - 1].ToLower().Equals(page_name)) // page name is the same as the folder name --> rename page name to 'default'
+                            page_name = "default";
+                    }
+                    #endregion
+
+                    // save the new page to disk into the correct folder
+                    if (!doesPageExists(folder_path, page_name))
+                    {
+                        #region save file in the root folder
+                        if (string.IsNullOrEmpty(folder_path))
                         {
-                            //System.Text.Encoding.UTF8
-                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + HttpUtility.UrlEncode(convert_to_filename(page_title.Value.ToLower())) + ".htm", false, System.Text.Encoding.UTF8))
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + page_name + ".htm", false, System.Text.Encoding.UTF8))
                             {
                                 mySW.Write(page_content);
                                 mySW.Close();
                             }
                         }
+                        #endregion
+                        #region save file inside folders
                         else
                         {
-                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + Page.Request.QueryString["f"] + "/" + HttpUtility.UrlEncode(convert_to_filename(page_title.Value.ToLower())) + ".htm", false, System.Text.Encoding.UTF8))
+                            using (StreamWriter mySW = new StreamWriter(DataIO.PagesDirectory + folder_path + "/" + page_name + ".htm", false, System.Text.Encoding.UTF8))
                             {
                                 mySW.Write(page_content);
                                 mySW.Close();
                             }
                         }
+                        #endregion
                         Response.Redirect(Request.Url.AbsoluteUri);
                     }
                     else
@@ -137,7 +153,9 @@ namespace hammyoncoffeine.Website
                     hammyoncoffeine.Core.Website_Helpers.sendError(ex);
                 }
             }
-            else if (pageAddOptions.SelectedIndex == 2) // Quellcode
+            #endregion
+            #region add a new page via source code
+            else if (pageAddOptions.SelectedIndex == 2)
             {
                 try
                 {
@@ -173,7 +191,9 @@ namespace hammyoncoffeine.Website
                     message.InnerText = "Leider ist ein Fehler beim Speichern aufgetreten.";
                 }
             }
-            else if (pageAddOptions.SelectedIndex == 3) // file upload
+            #endregion
+            #region add a new page via file upload
+            else if (pageAddOptions.SelectedIndex == 3)
             {
                 try
                 {
@@ -197,13 +217,14 @@ namespace hammyoncoffeine.Website
                     message.InnerText = "Es ist ein Fehler beim speichern/hochladen der Datei aufgetreten.";
                 }
             }
+            #endregion
         }
         public bool doesPageExists(string folderPath, string pageName)
         {
             if(string.IsNullOrEmpty(folderPath))
-                return File.Exists(DataIO.PagesDirectory + pageName);
+                return File.Exists(DataIO.PagesDirectory + pageName + ".htm");
             else
-                return File.Exists(DataIO.PagesDirectory + folderPath + "/" + pageName);
+                return File.Exists(DataIO.PagesDirectory + folderPath + "/" + pageName + ".htm");
         }
         private string template_title_replacement(Match m)
         {
