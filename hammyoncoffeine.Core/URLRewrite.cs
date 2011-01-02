@@ -41,14 +41,14 @@ namespace hammyoncoffeine.Core
 
                 //string pageName = get_file_name_out_of_url(currentURL)[0];
                 string pageName = temp_Array[0];
+                string folders = temp_Array[2];
+                string query = temp_Array[1];
 
                 if (!string.IsNullOrEmpty(pageName) && pageName != ">default" && pageName != ">error")
                 {
                     // TODO :: 
                     //string query = get_file_name_out_of_url(currentURL)[1];
-                    string query = temp_Array[1];
-                    string folders = temp_Array[2];
-
+       
                     if (!string.IsNullOrEmpty(query))
                         if(!string.IsNullOrEmpty(folders))
                             context.RewritePath(Helpers.RelativeWebsiteRoot + Configuration.Name_of_ASPX_Site + "?p=" + pageName + "&f=" + folders + "&" + query);
@@ -65,8 +65,19 @@ namespace hammyoncoffeine.Core
                     if (pageName == ">default")
                     {
                         pageName = Helpers.defaultpage; // defaultpage is defined inside settings.xml
-                        if(!string.IsNullOrEmpty(pageName))
-                            context.RewritePath(Helpers.RelativeWebsiteRoot + Configuration.Name_of_ASPX_Site + "?p=" + pageName);
+                        if (!string.IsNullOrEmpty(pageName))
+                        {
+                            if(!string.IsNullOrEmpty(query))
+                                if(!string.IsNullOrEmpty(folders))
+                                    context.RewritePath(Helpers.RelativeWebsiteRoot + Configuration.Name_of_ASPX_Site + "?p=" + pageName + "&f=" + folders + "&" + query);
+                                else
+                                    context.RewritePath(Helpers.RelativeWebsiteRoot + Configuration.Name_of_ASPX_Site + "?p=" + pageName + "&" + query);
+                            else
+                                if (!string.IsNullOrEmpty(folders))
+                                    context.RewritePath(Helpers.RelativeWebsiteRoot + Configuration.Name_of_ASPX_Site + "?p=" + pageName + "&f=" + folders);
+                                else
+                                    context.RewritePath(Helpers.RelativeWebsiteRoot + Configuration.Name_of_ASPX_Site + "?p=" + pageName);
+                        }
                     }
                     // triggered by a non .aspx page -> pass without url rewrite
                 }
@@ -98,7 +109,7 @@ namespace hammyoncoffeine.Core
 
             if(string.IsNullOrEmpty(hammyoncoffeine.Core.DataIO.websiteroot))
             // http://www.example.com:8080/folder1/folder2/folder3/sample.aspx?bla=foo&foo=bla
-                expression = new Regex("https?://(([\\w]+)\\.)?([\\w\\d\\.\\:-]+)([\\/\\w\\.-_,]+)?[$\\/]([\\w-_,]+)?\\.?(aspx|axd)?[\\?|\\/]?(.+)?", RegexOptions.None);
+                expression = new Regex("https?://(([\\w]+)\\.)?([\\w\\d\\.\\:-]+)([\\/\\w\\.\\-_,]+)?[$\\/]([\\w-_,]+)?\\.?(aspx|axd)?[\\?|\\/]?(.+)?", RegexOptions.None);
             // groups[1] www.
             // groups[2] www
             // groups[3] example.com:8080
@@ -107,7 +118,7 @@ namespace hammyoncoffeine.Core
             // groups[6] aspx
             // groups[7] bla=foo&foo=bla
             else
-                expression = new Regex("https?://(([\\w]+)\\.)?([\\w\\d\\.\\:-]+)" + hammyoncoffeine.Core.DataIO.websiteroot + "([\\/\\w\\.-_,]+)?[$\\/]([\\w-_,]+)?\\.?(aspx|axd)?[\\?|\\/]?(.+)?", RegexOptions.None);
+                expression = new Regex("https?://(([\\w]+)\\.)?([\\w\\d\\.\\:-]+)" + hammyoncoffeine.Core.DataIO.websiteroot + "([\\/\\w\\.\\-_,]+)?[$\\/]([\\w-_,]+)?\\.?(aspx|axd)?[\\?|\\/]?(.+)?", RegexOptions.None);
 
             if (expression.IsMatch(p))
             {
