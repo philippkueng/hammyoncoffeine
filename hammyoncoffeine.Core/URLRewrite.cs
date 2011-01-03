@@ -109,7 +109,7 @@ namespace hammyoncoffeine.Core
 
             if(string.IsNullOrEmpty(hammyoncoffeine.Core.DataIO.websiteroot))
             // http://www.example.com:8080/folder1/folder2/folder3/sample.aspx?bla=foo&foo=bla
-                expression = new Regex("https?://(([\\w]+)\\.)?([\\w\\d\\.\\:-]+)([\\/\\w\\.\\-_,]+)?[$\\/]([\\w-_,]+)?\\.?(aspx|axd)?[\\?|\\/]?(.+)?", RegexOptions.None);
+                expression = new Regex("https?://(([\\w]+)\\.)?([\\w\\d\\.\\:-]+)([\\/\\w\\.\\-_,]+)?[$\\/]([\\w-_,]+)?\\.?(aspx)?[\\?|\\/]?(.+)?", RegexOptions.None);
             // groups[1] www.
             // groups[2] www
             // groups[3] example.com:8080
@@ -118,7 +118,7 @@ namespace hammyoncoffeine.Core
             // groups[6] aspx
             // groups[7] bla=foo&foo=bla
             else
-                expression = new Regex("https?://(([\\w]+)\\.)?([\\w\\d\\.\\:-]+)" + hammyoncoffeine.Core.DataIO.websiteroot + "([\\/\\w\\.\\-_,]+)?[$\\/]([\\w-_,]+)?\\.?(aspx|axd)?[\\?|\\/]?(.+)?", RegexOptions.None);
+                expression = new Regex("https?://(([\\w]+)\\.)?([\\w\\d\\.\\:-]+)" + hammyoncoffeine.Core.DataIO.websiteroot + "([\\/\\w\\.\\-_,]+)?[$\\/]([\\w-_,]+)?\\.?(aspx)?[\\?|\\/]?(.+)?", RegexOptions.None);
 
             if (expression.IsMatch(p))
             {
@@ -130,7 +130,7 @@ namespace hammyoncoffeine.Core
                     if (current_expression.Groups[5].Length == 0 && current_expression.Groups[6].Length == 0 && current_expression.Groups[4].Length == 0)
                         return new string[] { ">default", null, null };
                     // a regular aspx or axd page gets called
-                    else if (current_expression.Groups[6].ToString() == "aspx" || current_expression.Groups[6].ToString() == "axd")
+                    else if (current_expression.Groups[6].ToString() == "aspx")
                         if (current_expression.Groups[5].ToString() == "error")
                             return new string[] { ">error", null, null };
                         else // return array for a regular page
