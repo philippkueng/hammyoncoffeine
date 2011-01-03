@@ -716,13 +716,13 @@ namespace hammyoncoffeine.Core
                 if (s_items.Any())
                 {
                     // if there is no page with the same name as the current one, create it first
-                    if (!s_items.Single().Element("pages").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Any())
+                    if (!s_items.Single().Element("pages").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower()) && t.Attribute("folder").Value.ToLower().Equals(folder.ToLower())).Any())
                     {
                         s_items.Single().Element("pages").Add(new XElement("page", new XAttribute("name", page), new XAttribute("folder", folder)));
                     }
 
                     // add the item to the page inside the shared_item
-                    s_items.Single().Element("pages").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower())).Single().Add(new XElement("item", item));
+                    s_items.Single().Element("pages").Elements("page").Where(t => t.Attribute("name").Value.ToLower().Equals(page.ToLower()) && t.Attribute("folder").Value.ToLower().Equals(folder.ToLower())).Single().Add(new XElement("item", item));
 
                     DataIO.LoadData.Save(DataIO.StorageLocation);
                     HttpContext.Current.Cache.Remove("page_string" + page.ToLower());
